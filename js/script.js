@@ -13,9 +13,17 @@ function loadData() {
 
     // load streetview
 
-    // YOUR CODE GOES HERE!
+    var streetStr = $("#street").val();
+    var cityStr = $("#city").val();
+    var address = streetStr + ',' + cityStr;
 
-    return false;
+    $greeting.text('So, you want to live at ' + address + '?');
+
+    var streerviewUrl = 'https://maps.googleapis.com/maps/api/streetview?size=600x300&location=' + address + '';
+    $body.append('<img class="bgimg" src="' + streerviewUrl + '">');
+
+    return false
+
 };
 
 $('#form-container').submit(loadData);
