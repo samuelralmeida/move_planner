@@ -43,6 +43,12 @@ function loadData() {
 
     var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + '&format=json&callback=wikiCallback';
 
+    // para a solicitação se ela for executada por muito tempo
+    // contorna um possível erro. 8000 milésimos de segundo = 8s
+    var wikiRequestTimeout = setTimeout(function(){
+        $wikiElem.text("failed to get wikipedia resources");
+    }, 8000);
+
     $.ajax({
         url: wikiUrl,
         dataType: "jsonp",
@@ -54,6 +60,9 @@ function loadData() {
                 var url = 'http://en.wikipedia.org/wiki/' + articleStr;
                 $wikiElem.append('<li><a href="' + url + '">' + articleStr + '</a></li>');
             };
+
+            //se a requisição tiver sucesso, limpa o que foi feito pela função wikiRequestTimeout
+            clearTimeout(wikiRequestTimeout);
         }
     })
 
