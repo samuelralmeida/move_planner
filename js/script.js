@@ -37,6 +37,8 @@ function loadData() {
                 '<p>' + article.snippet + '</p>'+
             '</li>');
         };
+    }).fail(function(e){
+        $nytHeaderElem.text('New York Times Articles About Could Not Be Loaded');
     });
 
     return false
